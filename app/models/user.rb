@@ -2,8 +2,12 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: true
   validate :santa_assigned?
 
+  def name
+    "#{first_name} #{last_name}"
+  end
+
   def need_more_santas
-    self.secret_santa = "no santa"
+    self.secret_santa = 'no santa'
   end
 
   def assign_santa

@@ -1,5 +1,5 @@
+# Comment
 class SecretSantasController < ApplicationController
-
   def index
     @users = User.limit(20)
   end
@@ -27,15 +27,17 @@ class SecretSantasController < ApplicationController
     (santa_limit) ? (@user.need_more_santas) : (@user.assign_santa)
   end
 
-  def request_valid?
-    if @user.valid?
-      assign_santa
-      flash[:notice] = "Success"
-      redirect_to secret_santas_path
-    else
-      flash[:alert] = "error"
-      redirect_to secret_santas_path
-    end
+  def redirect
+    redirect_to secret_santas_path
   end
 
+  def request_valid?
+    (@user.valid?) ? user_valid_assignments : flash[:alert] = 'Error'
+    redirect
+  end
+
+  def user_valid_assignments
+    assign_santa
+    flash[:notice] = 'Success'
+  end
 end
