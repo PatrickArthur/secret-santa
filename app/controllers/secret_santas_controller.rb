@@ -27,13 +27,9 @@ class SecretSantasController < ApplicationController
     (santa_limit) ? (@user.need_more_santas) : (@user.assign_santa)
   end
 
-  def redirect
-    redirect_to secret_santas_path
-  end
-
   def request_valid?
     (@user.valid?) ? user_valid_assignments : flash[:alert] = 'Error'
-    redirect
+    redirect_to secret_santas_path
   end
 
   def user_valid_assignments
