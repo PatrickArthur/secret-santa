@@ -10,7 +10,8 @@ class SecretSantasController < ApplicationController
 
   def create
     @user.update_attributes(user_params)
-    request_valid?
+    (@user.valid?) ? user_valid_assignments : flash[:alert] = 'Error'
+    redirect_to secret_santas_path
   end
 
   private
@@ -25,11 +26,6 @@ class SecretSantasController < ApplicationController
 
   def assign_santa
     (santa_limit) ? (@user.need_more_santas) : (@user.assign_santa)
-  end
-
-  def request_valid?
-    (@user.valid?) ? user_valid_assignments : flash[:alert] = 'Error'
-    redirect_to secret_santas_path
   end
 
   def user_valid_assignments
