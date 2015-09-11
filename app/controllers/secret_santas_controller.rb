@@ -20,7 +20,7 @@ class SecretSantasController < ApplicationController
   end
 
   def santa_limit
-    @users <= 10
+    if @users <= 10
   end
 
   def assign_santa
